@@ -1,63 +1,70 @@
-<div align="center">
-<br/>
- <img src="https://www.pngpix.com/wp-content/uploads/2016/07/PNGPIX-COM-IBM-Logo-PNG-Transparent.png" alt="Logo" width="400" height="128">
- 
-# IBM-Project-653-1658313040
-# **Inventory Management System for Retailers**      
-  </div> 
- 
+# Getting Started with Create React App
 
-Domain:  **Cloud Application Development**        
-Team ID : **PNT2022TMID37500**
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-<img align="right" alt="Coding" width="300" height="400" src="https://cdn-web.gofrugal.com/images/inventory_ctrl/banner_img.svg">
+## Available Scripts
 
+In the project directory, you can run:
 
+### `npm start`
 
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
- ## :bulb:Project Idea :
- <ul><li>Retail inventory management is the process of ensuring you carry
-merchandise that shoppers want, with neither too little nor too much on
-hand. By managing inventory, retailers meet customer demand without
-running out of stock or carrying excess supply.</li>
-<li>In practice, effective retail inventory management results in lower costs
-and a better understanding of sales patterns. Retail inventory management
-tools and methods give retailers more information with which to run their
-businesses.</li>
-</ul>
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
+### `npm test`
 
-## :people_holding_hands:Team Members :
-|   **Title**   |      **Name**     |
-|:-----------:|:-----------------:|
-| Team Leader   |    **Antony Hyson S**   |
-| Team Member 1 |   **Sanjay M**  |
-| Team Member 2 |  **Akash S**  |
-| Team Member 3 | **Praveen Kumar A** |
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `npm run build`
 
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## :weight_lifting:Required Skills :
- ![Tux, the Linux mascot](https://img.icons8.com/color/48/40C057/html-5--v1.png)   ![Tux, the Linux mascot](https://img.icons8.com/fluency/48/000000/css3.png) ![Tux, the Linux mascot](https://img.icons8.com/fluency/48/000000/javascript.png) ![Tux, the Linux mascot]( https://img.icons8.com/color/48/000000/kubernetes.png) ![Tux, the Linux mascot](https://img.icons8.com/color/48/000000/docker.png)  ![Tux, the Linux mascot](https://img.icons8.com/fluency/48/000000/python.png)  ![Tux, the Linux mascot]( https://img.icons8.com/ios-filled/50/000000/flask.png) ![Tux, the Linux mascot](https://img.icons8.com/nolan/64/ibm.png)
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-    HTML, CSS, Java Script, IBM Cloud Object Storage, Python-Flask, Kubernetes, Docker, IBM DB2, IBM Container Registry
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run eject`
 
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-## 🏗️Technical Architecture :
-![Technical architecture diagram](https://lh3.googleusercontent.com/CREVNwiSXyEeHRqKw-PyOLl3407cgeGKXaoHe4XxiA2BKwElixI7EHYyIo65PCZwi7t7vvg_wvZ6V44M_i9K0n7rk4MkKcfoSGN6GKBwTDVBYVIoon8EfgcBwBiKNA)
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-## :chart_with_upwards_trend:Project Workflow :
- - Goods are reviwed,sorted and stored.
- - Inventory levels are monitored
- - Stock orders are placed
- - Stock order are approved
- - Goods are taken from stock
- - Inventory level are updated
- - low stock levels trigger purchasing
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
