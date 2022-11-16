@@ -1,8 +1,9 @@
 import re
+import os
 import ibm_db
 from flask import Flask, jsonify, render_template, request, session
 from flask_cors import CORS
-
+from flask_mail import Mail, Message
 app = Flask(__name__)
 CORS(app)
 
@@ -13,12 +14,35 @@ conn = ibm_db.connect(
 print(conn)
 print("connection successful...")
 
-
+app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'Flask-mail'
+app.config['MAIL_PASSWORD'] = os.environ.get('sendgrid-api-key')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('antonyhyson@protonmail.com')
+mail = Mail(app)
 app.secret_key = 'a'
 
 @app.route('/')
 def hello_world():
    return 'Hello World'
+
+
+@app.route('/list')
+def list():
+  students = []
+  sql = "SELECT * FROM test"
+  stmt = ibm_db.exec_immediate(conn, sql)
+  dictionary = ibm_db.fetch_both(stmt)
+  while dictionary != False:
+    print ("The Name is : ",  dictionary)
+    students.append(dictionary)
+    dictionary = ibm_db.fetch_both(stmt)
+
+  if students:
+    return render_template("list.html", students = students)
+
+
 
 
 # post.text = request.form.get('body','')
@@ -43,6 +67,7 @@ def register():
     elif not re.match(r'[A-Za-z0-9]+', username):
         return {"msg": "name must contain only char and numbers"}, 401
     else:
+    
      insert_sql = "INSERT INTO users VALUES (?, ?, ?)"
      prep_stmt = ibm_db.prepare(conn, insert_sql)
      ibm_db.bind_param(prep_stmt, 1, username)
@@ -50,6 +75,8 @@ def register():
      ibm_db.bind_param(prep_stmt, 3, password)
      ibm_db.execute(prep_stmt)
      msg = 'You have successfully registered !',200
+     mesg = Message('Twilio SendGrid Test Email', recipients=[email])
+     mesg.body = ('Congratulations! You have sent a test email with' 'Twilio SendGrid!')
   elif request.method == 'POST':
     msg = 'Please fill out the form !'
 
