@@ -19,7 +19,7 @@ def alert(main_msg):
    try:
       server = smtplib.SMTP_SSL('smtp.sendgrid.net', 465)
       server.ehlo()
-      server.login('Flask-mail',os.environ.get('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'))
+      server.login('Flask-mail',os.environ.get('sendgrid-api-key'))
       server.sendmail(mail_from, mail_to, msg.as_string())
       server.close()
       print("Mail sent successfully!")
