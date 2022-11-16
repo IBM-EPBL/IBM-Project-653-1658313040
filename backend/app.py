@@ -1,9 +1,11 @@
-import re
 import os
+import re
 import ibm_db
-from flask import Flask, jsonify, render_template, request, session
+from flask import Flask, flash, jsonify, render_template, request, session
 from flask_cors import CORS
 from flask_mail import Mail, Message
+from werkzeug.wrappers import Request, Response
+from sendgrid import * 
 app = Flask(__name__)
 CORS(app)
 
@@ -15,10 +17,10 @@ print(conn)
 print("connection successful...")
 
 app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
-app.config['MAIL_PORT'] = 587
+app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'Flask-mail'
-app.config['MAIL_PASSWORD'] = os.environ.get('sendgrid-api-key')
+app.config['MAIL_PASSWORD'] = os.environ.get('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')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('antonyhyson@protonmail.com')
 mail = Mail(app)
 app.secret_key = 'a'
@@ -35,7 +37,7 @@ def list():
   stmt = ibm_db.exec_immediate(conn, sql)
   dictionary = ibm_db.fetch_both(stmt)
   while dictionary != False:
-    print ("The Name is : ",  dictionary)
+    print ("The Name is :",  dictionary)
     students.append(dictionary)
     dictionary = ibm_db.fetch_both(stmt)
 
@@ -105,6 +107,112 @@ def login():
        return {"msg": "user loggedin successfully","success":True}, 200
     else:
      return {"msg": "Incorrect username / password!"},400
+
+@app.route('/add-products', methods =['POST'])
+def addProducts():
+  msg = ''
+  if request.method == 'POST' :
+    product_id = request.json.get("product_id", None)
+    productname = request.json.get("productname", None)
+    productdetails = request.json.get("productdetails", None)
+    warehouse_location = request.json.get("warehouse_location", None)
+    quantity = request.json.get("quantity", None)
+    price = request.json.get("price", None)
+
+  if product_id and productname and productdetails and warehouse_location and quantity and  price and request.method == 'POST':
+     insert_sql = "INSERT INTO products VALUES (?, ?, ?, ?, ?, ?)"
+     prep_stmt = ibm_db.prepare(conn, insert_sql)
+     ibm_db.bind_param(prep_stmt, 1,  product_id)
+     ibm_db.bind_param(prep_stmt, 2, productname)
+     ibm_db.bind_param(prep_stmt, 3, productdetails)
+     ibm_db.bind_param(prep_stmt, 4,  warehouse_location)
+     ibm_db.bind_param(prep_stmt, 5, quantity)
+     ibm_db.bind_param(prep_stmt, 6, price)
+     ibm_db.execute(prep_stmt)
+     msg = 'Product Added!',200
+  return {"msg":msg,"success":True}
+
+@app.route('/get-products')
+def view_stock():
+
+    sql = "SELECT * FROM products"
+    stmt = ibm_db.prepare(conn, sql)
+    result=ibm_db.execute(stmt)
+    print(result)
+
+    products=[]
+    row = ibm_db.fetch_assoc(stmt)
+    print(row)
+    while(row):
+        products.append(row)
+        row = ibm_db.fetch_assoc(stmt)
+        print(row)
+   #  products=tuple(products)
+    print(products)
+
+    if result>0:
+       return {"data":products,"success":True}
+    else:
+        msg='No products found'
+        return {"data":[],"success":False}
+
+@app.route('/update-product',methods=['GET','POST'])
+def update_stock():
+    mg=''
+    if request.method == "POST":
+        product_id = request.json.get("product_id", None)
+        productname = request.json.get("productname", None)
+        productdetails = request.json.get("productdetails", None)
+        warehouse_location = request.json.get("warehouse_location", None)
+        quantity = request.json.get("quantity", None)
+        price = request.json.get("price", None)
+        sql='SELECT * FROM products WHERE product_id =?'
+        stmt = ibm_db.prepare(conn, sql)
+        ibm_db.bind_param(stmt,1,product_id)
+        ibm_db.execute(stmt)
+        product = ibm_db.fetch_assoc(stmt)
+        print(product)
+            
+        if product:
+            insert_sql='UPDATE products SET productname=?,productdetails=?, warehouse_location=? ,quantity =?,price=? WHERE product_id=?'
+            pstmt=ibm_db.prepare(conn, insert_sql)
+            ibm_db.bind_param(pstmt,1,productname)
+            ibm_db.bind_param(pstmt,2,productdetails)
+            ibm_db.bind_param(pstmt,2, warehouse_location)
+            ibm_db.bind_param(pstmt,3,quantity)
+            ibm_db.bind_param(pstmt,2,price)
+            ibm_db.bind_param(pstmt,4,product_id)
+            ibm_db.execute(pstmt)
+            mg='You have successfully updated the products!!'
+            # limit=5
+            # print(type(limit))
+            # if(quantity<=limit):
+            #       alert("Please update the quantity of the product {}, Atleast {} number of pieces must be added!".format(prodname,10))
+            return {"msg":mg,"success":True}
+        else:
+            return {"msg":"Update Failed!","success":False}
+               
+@app.route('/delete-products',methods=['GET','POST'])
+def delete_stock():
+    if(request.method=="POST"):
+        product_id = request.json.get("product_id", None)
+        sql2="DELETE FROM products WHERE  product_id=?"
+        stmt2 = ibm_db.prepare(conn, sql2)    
+        ibm_db.bind_param(stmt2,1, product_id)
+        ibm_db.execute(stmt2)
+        flash("Product Deleted", "success")
+        return {"msg":"product deleted!","success":True}
+
+@app.route('/delete-user',methods=['GET','POST'])
+def delete_user():
+    if(request.method=="POST"):
+        email= request.json.get("email", None)
+        sql2="DELETE FROM users WHERE  email=?"
+        stmt2 = ibm_db.prepare(conn, sql2)    
+        ibm_db.bind_param(stmt2,1, email)
+        ibm_db.execute(stmt2)
+        flash("user Deleted", "success")
+        return {"msg":"user deleted!","success":True}
 
 
 if __name__ == '__main__':
