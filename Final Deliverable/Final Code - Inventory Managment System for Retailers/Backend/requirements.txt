@@ -1,0 +1,7 @@
+Flask
+ibm_db
+sendgrid
+python-dotenv
+flask_cors
+flask_mail
+secure-smtplib
