@@ -2,7 +2,7 @@
 <br/>
  <img src="https://www.pngpix.com/wp-content/uploads/2016/07/PNGPIX-COM-IBM-Logo-PNG-Transparent.png" alt="Logo" width="400" height="128">
  
-# IBM-Project-52068-1660988777
+# IBM-Project-653-1658313040
 # **Inventory Management System for Retailers**      
   </div> 
  
