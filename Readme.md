@@ -59,5 +59,4 @@ businesses.</li>
  - Stock order are approved
  - Goods are taken from stock
  - Inventory level are updated
- - low stock levels trigger purchasing
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
